@@ -48,16 +48,15 @@ export async function MarkdownPublished({
   theme: PostTheme;
 }) {
   const highlighter = await getHighlighter();
+  const rehypeShiki = () =>
+    rehypeShikiFromHighlighter(highlighter, {
+      theme: SHIKI_THEME_PER_POST[theme],
+    });
   return (
     <article className={`prose-mdshare prose-mdshare-${theme} themed-surface`}>
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
-        rehypePlugins={[
-          [
-            rehypeShikiFromHighlighter,
-            { theme: SHIKI_THEME_PER_POST[theme] },
-          ],
-        ]}
+        rehypePlugins={[rehypeShiki]}
       >
         {content}
       </ReactMarkdown>
