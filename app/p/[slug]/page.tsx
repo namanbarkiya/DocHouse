@@ -112,8 +112,14 @@ export default async function PostPage({
       data-post-bg
       style={{ background: bg, minHeight: "100vh", overflowX: "hidden" }}
     >
+      <script
+        dangerouslySetInnerHTML={{ __html: READER_THEME_BOOTSTRAP }}
+      />
       {justPublished && <JustPublished slug={post.slug} />}
       <MarkdownPublished content={post.content} theme={theme} />
+      <script
+        dangerouslySetInnerHTML={{ __html: READER_THEME_APPLY }}
+      />
       <PostCTA theme={theme} />
       <PostColophon
         theme={theme}
@@ -128,6 +134,16 @@ export default async function PostPage({
     </div>
   );
 }
+
+const BG_BY_THEME = `{paper:'#faf7f2',ink:'#0e0c0a',console:'#ffffff'}`;
+
+// Runs as soon as the post wrapper enters the DOM, before the article paints.
+// Sets the wrapper + body bg to the reader's saved theme so there is no flash.
+const READER_THEME_BOOTSTRAP = `(function(){try{var s=localStorage.getItem('mdshare:reader-theme');if(s!=='paper'&&s!=='ink'&&s!=='console')return;var bg=${BG_BY_THEME}[s];var w=document.currentScript&&document.currentScript.parentElement;if(w)w.style.background=bg;document.body.style.background=bg;document.documentElement.style.background=bg;}catch(e){}})();`;
+
+// Runs right after the article enters the DOM. Swaps the article's theme class
+// so the saved reader theme is applied before first paint of the body.
+const READER_THEME_APPLY = `(function(){try{var s=localStorage.getItem('mdshare:reader-theme');if(s!=='paper'&&s!=='ink'&&s!=='console')return;var a=document.currentScript&&document.currentScript.previousElementSibling;if(!a||!a.classList||!a.classList.contains('prose-mdshare'))a=document.querySelector('article.prose-mdshare');if(a){a.classList.remove('prose-mdshare-paper','prose-mdshare-ink','prose-mdshare-console');a.classList.add('prose-mdshare-'+s);}}catch(e){}})();`;
 
 function PostCTA({ theme }: { theme: PostTheme }) {
   const max = theme === "console" ? 880 : 760;

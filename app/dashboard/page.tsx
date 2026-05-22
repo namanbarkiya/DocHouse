@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { Brand } from "@/components/brand";
 import { Hairline } from "@/components/hairline";
 import { ArrowRight } from "@/components/arrow";
+import { NavMenu } from "@/components/nav-menu";
 import { PostRow } from "@/components/post-row";
 import { SignOutForm } from "@/components/sign-out";
 import type { PostTheme } from "@/lib/themes";
@@ -40,7 +41,7 @@ export default async function DashboardPage() {
     <main className="min-h-screen flex flex-col px-6 sm:px-12 lg:px-24 pt-8 pb-10">
       <header className="flex items-center justify-between gap-4">
         <Brand size={22} />
-        <nav className="flex items-center gap-5 sm:gap-8 font-sans text-[15px] sm:text-[16px] text-ink-muted">
+        <NavMenu>
           <Link
             href="/create"
             className="hover:text-ink transition-colors duration-300"
@@ -48,7 +49,7 @@ export default async function DashboardPage() {
             New post
           </Link>
           <SignOutForm />
-        </nav>
+        </NavMenu>
       </header>
 
       <section className="stage flex-1 max-w-[920px] w-full mt-16 sm:mt-24">

@@ -11,12 +11,13 @@ export async function deletePost(slug: string) {
   } = await supabase.auth.getUser();
   if (!user) redirect("/login?next=/dashboard");
 
-  const { error } = await supabase
+  const { error, count } = await supabase
     .from("posts")
-    .delete()
+    .delete({ count: "exact" })
     .eq("slug", slug)
     .eq("user_id", user.id);
-  if (error) throw error;
+  if (error) throw new Error(error.message);
+  if (!count) throw new Error("Post not found or already removed");
   revalidatePath("/dashboard");
 }
 

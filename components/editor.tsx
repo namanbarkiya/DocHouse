@@ -7,6 +7,7 @@ import { Brand } from "./brand";
 import { Hairline } from "./hairline";
 import { ArrowRight } from "./arrow";
 import { ThemePicker } from "./theme-picker";
+import { ThemeDropdown } from "./theme-dropdown";
 import { MarkdownPreview } from "./markdown-preview";
 import { DEFAULT_THEME, type PostTheme } from "@/lib/themes";
 import { SAMPLE_MARKDOWN } from "@/lib/sample";
@@ -125,9 +126,9 @@ export function Editor({ resumeMode }: { resumeMode: boolean }) {
         </div>
       </header>
 
-      {/* Mobile-only secondary bar: theme + view toggle */}
+      {/* Mobile-only secondary bar: theme dropdown + view toggle */}
       <div className="flex-none md:hidden px-5 pb-3 flex items-center justify-between gap-3">
-        <ThemePicker value={theme} onChange={setTheme} compact />
+        <ThemeDropdown value={theme} onChange={setTheme} />
         <div className="flex border border-hairline">
           <button
             type="button"

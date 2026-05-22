@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import { deletePost } from "@/app/dashboard/actions";
 import type { PostTheme } from "@/lib/themes";
@@ -16,7 +17,9 @@ type Row = {
 export function PostRow({ post }: { post: Row }) {
   const [copied, setCopied] = useState(false);
   const [confirming, setConfirming] = useState(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
+  const router = useRouter();
 
   const link = typeof window !== "undefined"
     ? `${window.location.origin}/p/${post.slug}`
@@ -36,8 +39,17 @@ export function PostRow({ post }: { post: Row }) {
       setTimeout(() => setConfirming(false), 3000);
       return;
     }
+    setDeleteError(null);
     startTransition(async () => {
-      await deletePost(post.slug);
+      try {
+        await deletePost(post.slug);
+        router.refresh();
+      } catch (e) {
+        setDeleteError(
+          e instanceof Error ? e.message : "Could not delete post"
+        );
+        setConfirming(false);
+      }
     });
   }
 
@@ -101,6 +113,14 @@ export function PostRow({ post }: { post: Row }) {
           {pending ? "Deleting…" : confirming ? "Confirm?" : "Delete"}
         </button>
       </div>
+      {deleteError && (
+        <p
+          role="alert"
+          className="col-span-3 font-mono text-[10.5px] uppercase tracking-[0.16em] text-vermillion -mt-3"
+        >
+          {deleteError}
+        </p>
+      )}
     </div>
   );
 }

@@ -53,7 +53,10 @@ export async function MarkdownPublished({
       theme: SHIKI_THEME_PER_POST[theme],
     });
   return (
-    <article className={`prose-mdshare prose-mdshare-${theme} themed-surface`}>
+    <article
+      suppressHydrationWarning
+      className={`prose-mdshare prose-mdshare-${theme} themed-surface`}
+    >
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeShiki]}

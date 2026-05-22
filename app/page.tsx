@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Brand } from "@/components/brand";
 import { Hairline } from "@/components/hairline";
 import { ArrowRight } from "@/components/arrow";
+import { NavMenu } from "@/components/nav-menu";
 
 const FAQ = [
   {
@@ -47,7 +48,7 @@ export default function Home() {
     <main className="min-h-screen flex flex-col px-8 sm:px-14 lg:px-20 pt-8 pb-10">
       <header className="flex items-center justify-between gap-4">
         <Brand size={22} />
-        <nav className="flex items-center gap-5 sm:gap-8 text-[15px] sm:text-[16px] text-ink-muted font-sans">
+        <NavMenu>
           <Link
             href="/create"
             className="hover:text-ink transition-colors duration-300"
@@ -60,7 +61,7 @@ export default function Home() {
           >
             Dashboard
           </Link>
-        </nav>
+        </NavMenu>
       </header>
 
       <section className="stage flex-1 flex flex-col justify-center max-w-[1400px] mx-auto w-full pt-16 sm:pt-24">
