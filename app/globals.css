@@ -227,6 +227,11 @@ textarea.editor-surface::placeholder {
 
 .prose-mdshare {
   font-feature-settings: "kern", "liga", "onum";
+  overflow-wrap: break-word;
+}
+.prose-mdshare a {
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 .prose-mdshare > * + * {
   margin-top: 1.2em;

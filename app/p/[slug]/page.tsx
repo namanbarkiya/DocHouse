@@ -3,6 +3,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { MarkdownPublished } from "@/components/markdown-published";
 import { JustPublished } from "@/components/just-published";
+import { ReaderToolbar } from "@/components/reader-toolbar";
 import { isPostTheme, type PostTheme } from "@/lib/themes";
 
 type Params = { slug: string };
@@ -107,19 +108,122 @@ export default async function PostPage({
   };
 
   return (
-    <div style={{ background: bg, minHeight: "100vh" }}>
+    <div
+      data-post-bg
+      style={{ background: bg, minHeight: "100vh", overflowX: "hidden" }}
+    >
       {justPublished && <JustPublished slug={post.slug} />}
       <MarkdownPublished content={post.content} theme={theme} />
+      <PostCTA theme={theme} />
       <PostColophon
         theme={theme}
         createdAt={post.created_at}
         views={post.view_count}
       />
+      <ReaderToolbar authorTheme={theme} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
       />
     </div>
+  );
+}
+
+function PostCTA({ theme }: { theme: PostTheme }) {
+  const max = theme === "console" ? 880 : 760;
+  const labelColor =
+    theme === "ink" ? "#9a9588" : theme === "console" ? "#6b655a" : "#6b655a";
+  const headingColor =
+    theme === "ink" ? "#faf5e9" : "#181613";
+  const buttonBg = "#d63a1f";
+  const buttonText = "#faf7f2";
+  const headingFont =
+    theme === "console"
+      ? "var(--font-geist-mono), ui-monospace, monospace"
+      : "var(--font-fraunces), Georgia, serif";
+
+  return (
+    <section
+      aria-label="Publish your own"
+      style={{
+        maxWidth: max,
+        margin: "0 auto",
+        padding: "20px clamp(20px, 5vw, 44px) 64px",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-start",
+          gap: "1.25rem",
+          paddingTop: "1.75rem",
+        }}
+      >
+        <p
+          style={{
+            fontFamily: "var(--font-geist-mono), ui-monospace, monospace",
+            fontSize: "10.5px",
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+            color: labelColor,
+            margin: 0,
+          }}
+        >
+          <span style={{ color: buttonBg }}>●</span> &nbsp; Have your own?
+        </p>
+        <h2
+          style={{
+            fontFamily: headingFont,
+            fontStyle: theme === "console" ? "normal" : "italic",
+            fontWeight: theme === "console" ? 600 : 400,
+            fontSize: theme === "console" ? "18px" : "28px",
+            lineHeight: 1.25,
+            letterSpacing: theme === "console" ? "0.02em" : "-0.015em",
+            textTransform: theme === "console" ? "uppercase" : "none",
+            color: headingColor,
+            margin: 0,
+            maxWidth: "32ch",
+          }}
+        >
+          {theme === "console"
+            ? "// Publish your own markdown."
+            : "Paste your markdown, get a link like this."}
+        </h2>
+        <a
+          href="/create"
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "0.55rem",
+            padding: "0.85rem 1.4rem",
+            background: buttonBg,
+            color: buttonText,
+            fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+            fontSize: "15px",
+            letterSpacing: "-0.005em",
+            textDecoration: "none",
+            border: `1px solid ${buttonBg}`,
+            transition: "background 280ms cubic-bezier(0.16,1,0.3,1)",
+          }}
+        >
+          Write your own
+          <span aria-hidden style={{ display: "inline-block" }}>
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 14 14"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.6"
+              strokeLinecap="square"
+            >
+              <path d="M2 7h10M8 3l4 4-4 4" />
+            </svg>
+          </span>
+        </a>
+      </div>
+    </section>
   );
 }
 

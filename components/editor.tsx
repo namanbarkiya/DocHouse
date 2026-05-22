@@ -90,7 +90,7 @@ export function Editor({ resumeMode }: { resumeMode: boolean }) {
             className="inline-flex items-center gap-2 border border-hairline hover:border-ink hover:text-ink px-3 py-1.5 font-sans text-[13px] text-ink-muted transition-colors duration-300"
           >
             <Upload size={14} strokeWidth={1.75} />
-            <span className="hidden xs:inline sm:inline">Upload .md</span>
+            <span className="hidden sm:inline">Upload .md</span>
           </button>
           <input
             ref={fileInputRef}
