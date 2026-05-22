@@ -29,15 +29,15 @@ export default function NotFound() {
           .
         </h1>
         <p className="mt-9 max-w-md font-sans text-[17px] leading-[1.55] text-ink-muted">
-          The link you followed doesn&apos;t lead anywhere. The post may have
-          been removed, or the slug may have been mistyped.
+          No post lives at this slug. The author may have deleted it, or the
+          link was copied incompletely.
         </p>
-        <div className="mt-12 flex items-center gap-8">
-          <Link href="/" className="editorial-link text-[15px]">
-            Home <ArrowRight size={14} />
-          </Link>
+        <div className="mt-12 flex items-center gap-8 flex-wrap">
           <Link href="/create" className="editorial-link text-[15px]">
-            Write something <ArrowRight size={14} />
+            Publish your own <ArrowRight size={14} />
+          </Link>
+          <Link href="/" className="editorial-link text-[15px]">
+            Back home <ArrowRight size={14} />
           </Link>
         </div>
       </section>

@@ -19,12 +19,49 @@ export async function generateMetadata({
   const supabase = await createClient();
   const { data } = await supabase
     .from("posts")
-    .select("title")
+    .select("title, content, created_at")
     .eq("slug", slug)
     .maybeSingle();
+  if (!data) {
+    return {
+      title: "Post not found",
+      description: "This mdshare post no longer exists or was never published.",
+      robots: { index: false, follow: false },
+    };
+  }
+  const description = excerpt(data.content);
+  const canonical = `/p/${slug}`;
   return {
-    title: data?.title ? `${data.title} — mdshare` : "mdshare",
+    title: data.title,
+    description,
+    alternates: { canonical },
+    openGraph: {
+      type: "article",
+      title: data.title,
+      description,
+      url: canonical,
+      publishedTime: data.created_at,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: data.title,
+      description,
+    },
   };
+}
+
+function excerpt(markdown: string, max = 180): string {
+  const text = markdown
+    .replace(/```[\s\S]*?```/g, " ")
+    .replace(/`[^`]*`/g, " ")
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, " ")
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
+    .replace(/^#{1,6}\s+/gm, "")
+    .replace(/[*_>#~|-]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  if (text.length <= max) return text;
+  return text.slice(0, max - 1).trimEnd() + "…";
 }
 
 export default async function PostPage({
@@ -51,6 +88,20 @@ export default async function PostPage({
   const bg = themeBg(theme);
   const justPublished = sp?.just === "1";
 
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: excerpt(post.content),
+    datePublished: post.created_at,
+    url: `/p/${post.slug}`,
+    publisher: {
+      "@type": "Organization",
+      name: "mdshare",
+      url: "https://mdshare.app",
+    },
+  };
+
   return (
     <div style={{ background: bg, minHeight: "100vh" }}>
       {justPublished && <JustPublished slug={post.slug} />}
@@ -59,6 +110,10 @@ export default async function PostPage({
         theme={theme}
         createdAt={post.created_at}
         views={post.view_count}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
       />
     </div>
   );
@@ -127,8 +182,9 @@ function PostColophon({
         <Link
           href="/"
           style={{ color, textDecoration: "none" }}
+          title="Publish your own markdown as a beautiful link"
         >
-          Made with mdshare ↗
+          Published with mdshare ↗
         </Link>
       </p>
     </footer>

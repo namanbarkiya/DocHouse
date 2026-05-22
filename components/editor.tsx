@@ -117,7 +117,7 @@ export function Editor({ resumeMode }: { resumeMode: boolean }) {
             disabled={publishing || !content.trim()}
             className="fill-button"
           >
-            {publishing ? "Publishing…" : "Generate link"}
+            {publishing ? "Publishing…" : "Publish & get link"}
             {!publishing && <ArrowRight size={14} />}
           </button>
         </div>
@@ -167,7 +167,7 @@ export function Editor({ resumeMode }: { resumeMode: boolean }) {
             className="editor-surface w-full min-h-[calc(100vh-130px)] resize-none bg-transparent text-ink outline-none font-mono text-[14.5px] leading-[1.7] p-10 md:p-14"
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            placeholder="# Start typing markdown…"
+            placeholder="# Start with a heading — it becomes your title and URL slug"
             spellCheck={false}
             aria-label="Markdown source"
           />

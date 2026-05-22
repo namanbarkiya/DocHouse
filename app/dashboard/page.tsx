@@ -9,7 +9,10 @@ import { SignOutForm } from "@/components/sign-out";
 import type { PostTheme } from "@/lib/themes";
 
 export const metadata = {
-  title: "Dashboard — mdshare",
+  title: "Your library",
+  description:
+    "Every post you've published with mdshare — slugs, themes, view counts.",
+  robots: { index: false, follow: false },
 };
 
 type Row = {
@@ -63,7 +66,7 @@ export default async function DashboardPage() {
             fontWeight: 400,
           }}
         >
-          Published.
+          Your library.
         </h1>
 
         {posts.length === 0 ? (
@@ -76,11 +79,11 @@ export default async function DashboardPage() {
                 fontStyle: "italic",
               }}
             >
-              Nothing here yet.
+              An empty page is the start of every good one.
             </p>
             <div className="mt-8">
               <Link href="/create" className="editorial-link text-[16px]">
-                Write your first post
+                Publish your first post
                 <ArrowRight size={14} />
               </Link>
             </div>

@@ -6,9 +6,24 @@ export const POST_THEMES: ReadonlyArray<{
   hint: string;
   swatch: string;
 }> = [
-  { id: "paper", label: "Paper", hint: "Cream · serif · editorial", swatch: "#faf7f2" },
-  { id: "ink", label: "Ink", hint: "Dark · serif · late-night", swatch: "#0e0c0a" },
-  { id: "console", label: "Console", hint: "Mono · technical · lime", swatch: "#ffffff" },
+  {
+    id: "paper",
+    label: "Paper",
+    hint: "Warm cream · serif · for essays and long reads",
+    swatch: "#faf7f2",
+  },
+  {
+    id: "ink",
+    label: "Ink",
+    hint: "Deep dark · serif · for prose and late-night writing",
+    swatch: "#0e0c0a",
+  },
+  {
+    id: "console",
+    label: "Console",
+    hint: "Monospace · technical · for READMEs, changelogs, docs",
+    swatch: "#ffffff",
+  },
 ];
 
 export const DEFAULT_THEME: PostTheme = "paper";

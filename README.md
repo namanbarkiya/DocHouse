@@ -1,12 +1,19 @@
 # mdshare
 
-> Markdown, beautifully published.
+> Share markdown as a real web page — not a raw gist, not a signup wall.
 
-Paste a markdown file. See it rendered like a real publication. Share one link.
-That is the entire app.
+**mdshare** turns a `.md` file into a designed, shareable URL in two clicks.
+Paste your markdown, pick one of three editorial themes (Paper, Ink, Console),
+hit *Publish & get link* — you get a slug from your title, Shiki-highlighted
+code, and a page that looks like a publication, not source.
+
+Designed as a fast alternative to **HackMD**, **Telegraph**, **GitHub Gist**,
+and **Notion public pages** for anyone who wants to share a README, a note, an
+AI-generated doc, or an essay with one link and zero setup.
 
 Built with Next.js 16, React 19, Tailwind v4, Supabase (Postgres + Auth + RLS),
-`react-markdown` + `@shikijs/rehype` for code highlighting.
+`react-markdown` + `@shikijs/rehype` (sync, pre-loaded highlighter) for code
+highlighting.
 
 ---
 
@@ -16,8 +23,8 @@ Built with Next.js 16, React 19, Tailwind v4, Supabase (Postgres + Auth + RLS),
   vermillion accent. Awwwards-level reading experience.
 - **Three publish themes** the author picks per post — Paper, Ink, Console.
 - **Lazy Google OAuth** — the user only signs in at the moment they click
-  *Generate link*. Draft is stashed in `sessionStorage` and auto-submitted after
-  callback.
+  *Publish & get link*. Draft is stashed in `sessionStorage` and auto-submitted
+  after callback.
 - **Slug strategy** — slugified title, with `nanoid` suffix retry on collision.
 - **RLS** — anyone can read; only the author can write/update/delete their own
   posts.
@@ -123,10 +130,10 @@ End-to-end with Supabase configured:
 1. Visit `/` — Fraunces hero renders, "Start writing →" goes to `/create`.
 2. Paste a markdown fixture, switch between Paper / Ink / Console themes,
    confirm the preview restyles in place.
-3. Click *Generate link* logged out → routed to `/login?next=…` → Google
+3. Click *Publish & get link* logged out → routed to `/login?next=…` → Google
    sign-in → `/auth/callback` → returns to `/create?resume=1` → draft
    auto-submits → redirected to `/p/<slug>?just=1`.
-4. Floating "Your link is live" toast appears on `/p/<slug>` once.
+4. Floating "Your post is live" toast appears on `/p/<slug>` once.
 5. Visit `/dashboard` — your new post is listed. Hover/tap → Copy link /
    Delete. Sign out returns to `/`.
 6. Visit `/p/<slug>` directly without auth — public read works, view counter

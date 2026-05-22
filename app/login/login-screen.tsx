@@ -40,7 +40,7 @@ export function LoginScreen() {
       </header>
       <section className="stage flex-1 flex flex-col justify-center max-w-[680px]">
         <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink-faint mb-10">
-          <span className="text-vermillion">●</span> Final step
+          <span className="text-vermillion">●</span> One step from a live link
         </p>
         <h1
           className="font-display text-ink"
@@ -61,8 +61,9 @@ export function LoginScreen() {
           .
         </h1>
         <p className="mt-9 max-w-md font-sans text-[17px] leading-[1.55] text-ink-muted">
-          mdshare uses Google to know it&apos;s you. Your draft is safe and
-          will publish automatically right after sign-in.
+          Google verifies it&apos;s you so the post belongs to your library —
+          edit it, delete it, watch the view count later. Your draft is held
+          safely in this tab and publishes the second you&apos;re back.
         </p>
         {errored && (
           <p className="mt-5 font-mono text-[11px] uppercase tracking-[0.14em] text-vermillion">
@@ -84,7 +85,7 @@ export function LoginScreen() {
       <footer className="stage pt-10 mt-20">
         <Hairline />
         <p className="pt-5 font-mono text-[10.5px] uppercase tracking-[0.16em] text-ink-faint">
-          Vol. mdshare &nbsp;·&nbsp; You only sign in once.
+          Vol. mdshare &nbsp;·&nbsp; Sign in once · publish anytime
         </p>
       </footer>
     </main>
