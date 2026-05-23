@@ -45,6 +45,7 @@ highlighting.
 - Slug generated from the post title, with `nanoid` suffix retry on collisions.
 - GitHub-flavored markdown: tables, fenced code, footnotes, task lists.
 - Shiki syntax highlighting baked into the server response, with a pre-loaded sync highlighter so there is no client-side highlight flash.
+- **Real flow charts via Mermaid.** Fenced code blocks tagged ` ```mermaid ` render as proper interactive SVG diagrams (flowcharts, sequence, state, ER, gantt). The renderer is lazy-loaded so posts without diagrams pay nothing for the bundle.
 
 ### Reading experience
 
@@ -66,10 +67,12 @@ highlighting.
 - Popover also contains direct links to *Write your own* (`/create`) and *Your posts* (`/dashboard`).
 - Closes on outside click or `Esc`.
 
-### Author dashboard
+### Author dashboard & editing
 
 - Auth-gated list of every post you've published, newest first.
-- Inline copy-link button per row.
+- Inline **Edit**, **Copy link**, and **Delete** controls per row.
+- Edit route at `/edit/[slug]` loads the existing markdown into the editor preserving theme and slug. `PATCH /api/posts/[slug]` updates the row; the slug never changes so existing share links stay valid.
+- Reader toolbar on `/p/[slug]` adds an **Edit this post** entry when the viewer is the author (server-side `auth.getUser()` check, so a non-owner never sees it).
 - Two-step delete with `count: "exact"` verification and inline error surfacing, so RLS or stale-row failures are not silent.
 - View count, theme, slug, and publish date shown per row.
 

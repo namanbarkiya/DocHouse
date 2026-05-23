@@ -81,10 +81,15 @@ export default async function PostPage({
   const supabase = await createClient();
   const { data: post } = await supabase
     .from("posts")
-    .select("slug, title, content, theme, view_count, created_at")
+    .select("slug, title, content, theme, view_count, created_at, user_id")
     .eq("slug", slug)
     .maybeSingle();
   if (!post) notFound();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const isOwner = !!user && user.id === post.user_id;
 
   // Fire-and-forget view increment
   supabase.rpc("increment_view", { p_slug: slug }).then(() => undefined);
@@ -126,7 +131,7 @@ export default async function PostPage({
         createdAt={post.created_at}
         views={post.view_count}
       />
-      <ReaderToolbar authorTheme={theme} />
+      <ReaderToolbar authorTheme={theme} editSlug={isOwner ? post.slug : null} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}

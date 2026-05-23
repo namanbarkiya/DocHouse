@@ -14,9 +14,24 @@ import { SAMPLE_MARKDOWN } from "@/lib/sample";
 import { saveDraft, loadDraft, clearDraft } from "@/lib/draft";
 import { extractTitle } from "@/lib/title";
 
-export function Editor({ resumeMode }: { resumeMode: boolean }) {
-  const [content, setContent] = useState(SAMPLE_MARKDOWN);
-  const [theme, setTheme] = useState<PostTheme>(DEFAULT_THEME);
+type EditorProps =
+  | { mode?: "create"; resumeMode: boolean }
+  | {
+      mode: "edit";
+      slug: string;
+      initialContent: string;
+      initialTheme: PostTheme;
+    };
+
+export function Editor(props: EditorProps) {
+  const editing = props.mode === "edit";
+  const initialContent = editing ? props.initialContent : SAMPLE_MARKDOWN;
+  const initialTheme = editing ? props.initialTheme : DEFAULT_THEME;
+  const editSlug = editing ? props.slug : null;
+  const resumeMode = !editing && props.resumeMode;
+
+  const [content, setContent] = useState(initialContent);
+  const [theme, setTheme] = useState<PostTheme>(initialTheme);
   const [view, setView] = useState<"write" | "preview">("write");
   const [publishing, setPublishing] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -47,23 +62,37 @@ export function Editor({ resumeMode }: { resumeMode: boolean }) {
     setError(null);
     const finalTitle = title ?? extractTitle(c);
     try {
-      const res = await fetch("/api/posts", {
-        method: "POST",
+      const endpoint = editSlug
+        ? `/api/posts/${encodeURIComponent(editSlug)}`
+        : "/api/posts";
+      const method = editSlug ? "PATCH" : "POST";
+      const res = await fetch(endpoint, {
+        method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ content: c, theme: t, title: finalTitle }),
       });
       if (res.status === 401) {
+        if (editSlug) {
+          router.push(
+            "/login?next=" + encodeURIComponent(`/edit/${editSlug}`)
+          );
+          return;
+        }
         saveDraft({ content: c, theme: t, title: finalTitle });
         router.push("/login?next=" + encodeURIComponent("/create?resume=1"));
         return;
       }
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
-        throw new Error(data?.error ?? `Publish failed (${res.status})`);
+        throw new Error(
+          data?.error ?? `${editSlug ? "Save" : "Publish"} failed (${res.status})`
+        );
       }
       const data = (await res.json()) as { slug: string };
       clearDraft();
-      router.push(`/p/${data.slug}?just=1`);
+      router.push(
+        editSlug ? `/p/${data.slug}` : `/p/${data.slug}?just=1`
+      );
     } catch (e) {
       setError(e instanceof Error ? e.message : "Something went wrong");
       setPublishing(false);
@@ -120,7 +149,13 @@ export function Editor({ resumeMode }: { resumeMode: boolean }) {
             disabled={publishing || !content.trim()}
             className="fill-button"
           >
-            {publishing ? "Publishing…" : "Publish & get link"}
+            {publishing
+              ? editSlug
+                ? "Saving…"
+                : "Publishing…"
+              : editSlug
+              ? "Save changes"
+              : "Publish & get link"}
             {!publishing && <ArrowRight size={14} />}
           </button>
         </div>

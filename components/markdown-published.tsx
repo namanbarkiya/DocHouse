@@ -2,6 +2,8 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeShikiFromHighlighter from "@shikijs/rehype/core";
 import { createHighlighter, type Highlighter } from "shiki";
+import { rehypeExtractDiagrams } from "@/lib/rehype-diagrams";
+import { Mermaid } from "./mermaid";
 import type { PostTheme } from "@/lib/themes";
 
 const SHIKI_THEME_PER_POST: Record<PostTheme, string> = {
@@ -38,6 +40,24 @@ function getHighlighter() {
     });
   }
   return highlighterPromise;
+}
+
+function DiagramOrDiv(
+  props: React.HTMLAttributes<HTMLDivElement> & {
+    node?: { properties?: Record<string, unknown> };
+  }
+) {
+  const properties = props.node?.properties ?? {};
+  const source = properties["dataDiagramSource"];
+  if (
+    properties["dataDiagramType"] === "mermaid" &&
+    typeof source === "string" &&
+    source.trim().length > 0
+  ) {
+    return <Mermaid chart={source} />;
+  }
+  const { node: _node, ...rest } = props;
+  return <div {...rest} />;
 }
 
 function ExternalLink({
@@ -80,8 +100,8 @@ export async function MarkdownPublished({
     >
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
-        rehypePlugins={[rehypeShiki]}
-        components={{ a: ExternalLink }}
+        rehypePlugins={[rehypeExtractDiagrams, rehypeShiki]}
+        components={{ a: ExternalLink, div: DiagramOrDiv }}
       >
         {content}
       </ReactMarkdown>

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { Settings2, PenLine, LibraryBig, X } from "lucide-react";
+import { Settings2, PenLine, LibraryBig, Pencil, X } from "lucide-react";
 import { POST_THEMES, type PostTheme } from "@/lib/themes";
 
 const STORAGE_KEY = "dochouse:reader-theme";
@@ -13,7 +13,13 @@ const BG_BY_THEME: Record<PostTheme, string> = {
   console: "#ffffff",
 };
 
-export function ReaderToolbar({ authorTheme }: { authorTheme: PostTheme }) {
+export function ReaderToolbar({
+  authorTheme,
+  editSlug = null,
+}: {
+  authorTheme: PostTheme;
+  editSlug?: string | null;
+}) {
   const [theme, setTheme] = useState<PostTheme>(authorTheme);
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -219,6 +225,24 @@ export function ReaderToolbar({ authorTheme }: { authorTheme: PostTheme }) {
               gap: 4,
             }}
           >
+            {editSlug && (
+              <Link
+                href={`/edit/${editSlug}`}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 10,
+                  padding: "9px 4px",
+                  color: surfaceText,
+                  textDecoration: "none",
+                  fontSize: 14,
+                  letterSpacing: "-0.005em",
+                }}
+              >
+                <Pencil size={16} strokeWidth={1.75} />
+                <span>Edit this post</span>
+              </Link>
+            )}
             <Link
               href="/create"
               style={{

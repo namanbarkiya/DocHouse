@@ -93,6 +93,12 @@ export function PostRow({ post }: { post: Row }) {
         </p>
       </div>
       <div className="flex items-center gap-5 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
+        <Link
+          href={`/edit/${post.slug}`}
+          className="font-sans text-[12px] text-ink-muted hover:text-ink uppercase tracking-[0.14em] transition-colors duration-300"
+        >
+          Edit
+        </Link>
         <button
           type="button"
           onClick={copy}
