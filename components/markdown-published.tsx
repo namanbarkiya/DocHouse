@@ -40,6 +40,27 @@ function getHighlighter() {
   return highlighterPromise;
 }
 
+function ExternalLink({
+  href,
+  children,
+  ...rest
+}: React.AnchorHTMLAttributes<HTMLAnchorElement>) {
+  const isInternal =
+    !href || href.startsWith("#") || href.startsWith("/");
+  if (isInternal) {
+    return (
+      <a href={href} {...rest}>
+        {children}
+      </a>
+    );
+  }
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer nofollow" {...rest}>
+      {children}
+    </a>
+  );
+}
+
 export async function MarkdownPublished({
   content,
   theme,
@@ -60,6 +81,7 @@ export async function MarkdownPublished({
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeShiki]}
+        components={{ a: ExternalLink }}
       >
         {content}
       </ReactMarkdown>
