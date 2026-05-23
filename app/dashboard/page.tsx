@@ -12,7 +12,7 @@ import type { PostTheme } from "@/lib/themes";
 export const metadata = {
   title: "Your library",
   description:
-    "Every post you've published with mdshare. Slugs, themes, view counts.",
+    "Every post you've published with DocHouse. Slugs, themes, view counts.",
   robots: { index: false, follow: false },
 };
 
@@ -34,6 +34,7 @@ export default async function DashboardPage() {
   const { data } = await supabase
     .from("posts")
     .select("slug, title, theme, view_count, created_at")
+    .eq("user_id", user.id)
     .order("created_at", { ascending: false });
   const posts = (data ?? []) as Row[];
 

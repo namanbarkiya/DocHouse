@@ -1,8 +1,10 @@
-# mdshare
+# DocHouse
 
 > Share markdown as a public web page. No Gist viewer, no signup wall.
 
-**mdshare** turns a `.md` file into a shareable URL in two clicks. Paste your
+📖 **Read this README on DocHouse → [dochouse.nbarkiya.xyz/p/readme](https://dochouse.nbarkiya.xyz/p/readme)**
+
+**DocHouse** turns a `.md` file into a shareable URL in two clicks. Paste your
 markdown, pick one of three reading themes (Paper, Ink, Console), hit
 *Publish & get link*. You get a slug from your title, Shiki-highlighted code,
 and a page that reads like a publication instead of source.
@@ -29,6 +31,98 @@ highlighting.
   collision.
 - **RLS.** Anyone can read; only the author can write, update, or delete
   their own posts.
+
+---
+
+## Features
+
+### Writing & publishing
+
+- Paste, drop, or upload a `.md` / `.markdown` / `.txt` file (2 MB cap) into the editor.
+- Live split preview while typing, with a mobile Write/Preview toggle.
+- Word count, draft auto-stash to `sessionStorage`.
+- Lazy Google sign-in: account is only required at the moment you click *Publish & get link*. The draft is held in the tab and auto-submits on return from the OAuth callback.
+- Slug generated from the post title, with `nanoid` suffix retry on collisions.
+- GitHub-flavored markdown: tables, fenced code, footnotes, task lists.
+- Shiki syntax highlighting baked into the server response, with a pre-loaded sync highlighter so there is no client-side highlight flash.
+
+### Reading experience
+
+- Three author-selectable themes per post:
+  - **Paper.** Cream background, Fraunces serif. For essays and long reads.
+  - **Ink.** Deep dark serif. For prose and late-night writing.
+  - **Console.** White background, monospace. For READMEs, changelogs, dev docs.
+- Fluid typography via `clamp()` so headings, body, and padding scale smoothly from phone to desktop.
+- Tables horizontally scroll when narrow. Long URLs and inline code chips wrap so the article never overflows the viewport.
+- Per-post view counter incremented through a `security definer` RPC that bypasses RLS safely.
+- Theme-aware CTA at the end of every post inviting the reader to publish their own.
+
+### Reader-side controls (floating toolbar)
+
+- Fixed bottom-right `Settings2` trigger on every published post.
+- Popover with a theme switcher (Paper / Ink / Console).
+- Reader's chosen theme persists in `localStorage` (`dochouse:reader-theme`).
+- Saved theme is applied **before first paint** on subsequent visits via an inline bootstrap script, so there is no theme flash.
+- Popover also contains direct links to *Write your own* (`/create`) and *Your posts* (`/dashboard`).
+- Closes on outside click or `Esc`.
+
+### Author dashboard
+
+- Auth-gated list of every post you've published, newest first.
+- Inline copy-link button per row.
+- Two-step delete with `count: "exact"` verification and inline error surfacing, so RLS or stale-row failures are not silent.
+- View count, theme, slug, and publish date shown per row.
+
+### Sharing surface
+
+- Just-published floating toast with one-click *Copy link*.
+- Open Graph and Twitter `summary_large_image` cards wired to a hosted 1200×630 OG image, so links look polished in Slack, X, Discord, iMessage.
+- Per-post OG includes the post title as alt text.
+
+### Discoverability (SEO / AEO / GEO)
+
+- Canonical URL on every page, with template-driven `<title>`.
+- `WebApplication` JSON-LD on the root layout.
+- `FAQPage` JSON-LD on the landing page, paired with a five-question FAQ block shaped the way answer engines (Perplexity, Google AI Overviews, ChatGPT search) extract.
+- `Article` JSON-LD per published post with `headline`, `description`, `datePublished`, and `publisher`.
+- Per-post meta description auto-derived from the markdown body (fences, links, marks stripped).
+- `app/robots.ts` and `app/sitemap.ts`. The sitemap pulls live slugs from Supabase with graceful fallback when the DB is unreachable at build time.
+- `noindex` on private routes (`/dashboard`, `/login`, `/create`, `/marketing`).
+- Vercel Analytics on every page.
+
+### Identity & assets
+
+- Custom serif "dh." mark: italic Fraunces lowercase + vermillion square endmark.
+- Available as `<LogoMark>`, `<LogoWordmark>`, and a composed `<Logo variant="lockup">`.
+- Multi-resolution `favicon.ico` (16, 32, 48, 64, 128, 256 px).
+- `apple-icon.png` at 180×180, `icon.png` at 512×512.
+- `/marketing` artboard route renders the OG card (Paper + Ink), social avatar, favicon source, and logo specimens at real export dimensions for screenshotting.
+
+### Editor chrome
+
+- Editor uses an `h-[100dvh]` layout: header and mobile secondary bar stay pinned at top, write and preview panes scroll independently with no spillover whitespace.
+- Upload button rendered as a real bordered icon button (`Upload` lucide icon) instead of a plain text link.
+- Mobile-only theme selector collapses to a single labeled dropdown with hint descriptions and a `Check` indicator on the active theme.
+- Three-letter view toggle (Write / Preview) on mobile.
+
+### Navigation
+
+- Top-level navbar collapses to a hamburger dropdown on mobile (`< sm`) and shows inline links on tablet and desktop.
+- Outside-click and `Esc` dismiss.
+
+### Content ownership & moderation
+
+- Postgres Row-Level Security: anyone can read; only the author can write, update, or delete their own posts.
+- Sign-out is a real `<form action={signOut}>` so it works without JS.
+
+### Performance & resilience
+
+- Next.js 16 server components with a pre-loaded sync Shiki highlighter (no async-pipeline race).
+- Paper-grain overlay rendered as an inline SVG data URI (no network request).
+- All three reading themes share the same fluid padding system so they degrade gracefully on narrow screens.
+- Inline reader-theme bootstrap script + `suppressHydrationWarning` on `<html>`, `<body>`, and `<article>` to keep the no-flash theme override hydration-clean.
+
+---
 
 ## Local setup
 
@@ -88,15 +182,19 @@ app/
   login/                   # Google OAuth trigger
   auth/callback/route.ts   # OAuth code exchange
   api/posts/route.ts       # POST: create post with slug retry
+  marketing/page.tsx       # noindex brand artboard (OG card + logo specimens)
   not-found.tsx            # editorial 404
+  robots.ts, sitemap.ts    # SEO surface
   globals.css              # design tokens, grain, theme CSS
 
 components/
   brand.tsx, hairline.tsx, arrow.tsx        # primitives
+  logo.tsx, nav-menu.tsx                    # mark + mobile hamburger
   editor.tsx                                # the main client component
-  theme-picker.tsx                          # 3-chip selector
+  theme-picker.tsx, theme-dropdown.tsx      # desktop chips + mobile dropdown
   markdown-preview.tsx                      # client-side preview render
   markdown-published.tsx                    # server-side render with shiki
+  reader-toolbar.tsx                        # floating reader theme + CTAs
   post-row.tsx, sign-out.tsx                # dashboard
   just-published.tsx                        # post-publish toast
 

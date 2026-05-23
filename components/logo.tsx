@@ -48,7 +48,7 @@ export function LogoMark({
           transform: `translateY(${Math.round(size * 0.03)}px)`,
         }}
       >
-        <span style={{ color: glyph }}>md</span>
+        <span style={{ color: glyph }}>dh</span>
         <span
           style={{
             display: "inline-block",
@@ -84,7 +84,7 @@ export function LogoWordmark({
         fontFeatureSettings: '"ss01"',
       }}
     >
-      mdshare
+      DocHouse
     </span>
   );
 }
@@ -97,7 +97,7 @@ export function Logo({
   accent = VERMILLION,
   wordmarkColor = INK,
   asLink = false,
-  ariaLabel = "mdshare",
+  ariaLabel = "DocHouse",
 }: {
   variant?: LogoVariant;
   size?: LogoSize;

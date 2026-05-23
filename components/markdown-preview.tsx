@@ -15,7 +15,7 @@ export function MarkdownPreview({
 }) {
   return (
     <article
-      className={`prose-mdshare prose-mdshare-${theme} themed-surface ${
+      className={`prose-dochouse prose-dochouse-${theme} themed-surface ${
         fillContainer ? "preview-fill" : ""
       }`}
     >

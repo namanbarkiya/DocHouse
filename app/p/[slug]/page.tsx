@@ -26,14 +26,14 @@ export async function generateMetadata({
   if (!data) {
     return {
       title: "Post not found",
-      description: "This mdshare post no longer exists or was never published.",
+      description: "This DocHouse post no longer exists or was never published.",
       robots: { index: false, follow: false },
     };
   }
   const description = excerpt(data.content);
   const canonical = `/p/${slug}`;
   const OG_IMAGE =
-    "https://res.cloudinary.com/dvt5vkfwz/image/upload/mdshare_og_url.png";
+    "https://res.cloudinary.com/dvt5vkfwz/image/upload/dochouse_og_url.png";
   return {
     title: data.title,
     description,
@@ -102,8 +102,8 @@ export default async function PostPage({
     url: `/p/${post.slug}`,
     publisher: {
       "@type": "Organization",
-      name: "mdshare",
-      url: "https://mdshare.nbarkiya.xyz",
+      name: "DocHouse",
+      url: "https://dochouse.nbarkiya.xyz",
     },
   };
 
@@ -139,11 +139,11 @@ const BG_BY_THEME = `{paper:'#faf7f2',ink:'#0e0c0a',console:'#ffffff'}`;
 
 // Runs as soon as the post wrapper enters the DOM, before the article paints.
 // Sets the wrapper + body bg to the reader's saved theme so there is no flash.
-const READER_THEME_BOOTSTRAP = `(function(){try{var s=localStorage.getItem('mdshare:reader-theme');if(s!=='paper'&&s!=='ink'&&s!=='console')return;var bg=${BG_BY_THEME}[s];var w=document.currentScript&&document.currentScript.parentElement;if(w)w.style.background=bg;document.body.style.background=bg;document.documentElement.style.background=bg;}catch(e){}})();`;
+const READER_THEME_BOOTSTRAP = `(function(){try{var s=localStorage.getItem('dochouse:reader-theme');if(s!=='paper'&&s!=='ink'&&s!=='console')return;var bg=${BG_BY_THEME}[s];var w=document.currentScript&&document.currentScript.parentElement;if(w)w.style.background=bg;document.body.style.background=bg;document.documentElement.style.background=bg;}catch(e){}})();`;
 
 // Runs right after the article enters the DOM. Swaps the article's theme class
 // so the saved reader theme is applied before first paint of the body.
-const READER_THEME_APPLY = `(function(){try{var s=localStorage.getItem('mdshare:reader-theme');if(s!=='paper'&&s!=='ink'&&s!=='console')return;var a=document.currentScript&&document.currentScript.previousElementSibling;if(!a||!a.classList||!a.classList.contains('prose-mdshare'))a=document.querySelector('article.prose-mdshare');if(a){a.classList.remove('prose-mdshare-paper','prose-mdshare-ink','prose-mdshare-console');a.classList.add('prose-mdshare-'+s);}}catch(e){}})();`;
+const READER_THEME_APPLY = `(function(){try{var s=localStorage.getItem('dochouse:reader-theme');if(s!=='paper'&&s!=='ink'&&s!=='console')return;var a=document.currentScript&&document.currentScript.previousElementSibling;if(!a||!a.classList||!a.classList.contains('prose-dochouse'))a=document.querySelector('article.prose-dochouse');if(a){a.classList.remove('prose-dochouse-paper','prose-dochouse-ink','prose-dochouse-console');a.classList.add('prose-dochouse-'+s);}}catch(e){}})();`;
 
 function PostCTA({ theme }: { theme: PostTheme }) {
   const max = theme === "console" ? 880 : 760;
@@ -308,7 +308,7 @@ function PostColophon({
           style={{ color, textDecoration: "none" }}
           title="Publish your own markdown as a beautiful link"
         >
-          Published with mdshare ↗
+          Published with DocHouse ↗
         </Link>
       </p>
     </footer>

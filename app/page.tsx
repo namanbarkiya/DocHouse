@@ -7,19 +7,19 @@ import { NavMenu } from "@/components/nav-menu";
 const FAQ = [
   {
     q: "How do I share a markdown file as a link?",
-    a: "Paste your markdown into mdshare, pick a reading theme, and click Publish & get link. You get a public URL with a slug from your title. No static site, no repo, no Gist.",
+    a: "Paste your markdown into DocHouse, pick a reading theme, and click Publish & get link. You get a public URL with a slug from your title. No static site, no repo, no Gist.",
   },
   {
-    q: "What's the difference between mdshare and a GitHub Gist?",
-    a: "A Gist renders your markdown inside the GitHub code-viewer. mdshare renders it as a normal web page with Shiki-highlighted code, readable typography, and a clean URL based on your title.",
+    q: "What's the difference between DocHouse and a GitHub Gist?",
+    a: "A Gist renders your markdown inside the GitHub code-viewer. DocHouse renders it as a normal web page with Shiki-highlighted code, readable typography, and a clean URL based on your title.",
   },
   {
     q: "Do I need an account to publish?",
     a: "No account is needed to write or preview. You only sign in with Google at the exact moment you click Publish & get link, so we can attach the post to you and let you edit, delete, or track views later.",
   },
   {
-    q: "Is mdshare a good HackMD or Telegraph alternative?",
-    a: "Yes. HackMD asks you to sign up before you can do anything; Telegraph is plain and has no code highlighting. mdshare lets you start instantly, ships three designed themes (Paper, Ink, Console), and highlights code with Shiki by default.",
+    q: "Is DocHouse a good HackMD or Telegraph alternative?",
+    a: "Yes. HackMD asks you to sign up before you can do anything; Telegraph is plain and has no code highlighting. DocHouse lets you start instantly, ships three reading themes (Paper, Ink, Console), and highlights code with Shiki by default.",
   },
   {
     q: "Can I publish a long README or a technical doc?",
@@ -156,8 +156,7 @@ export default function Home() {
         <Hairline />
         <div className="pt-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 font-mono text-[10.5px] uppercase tracking-[0.16em] text-ink-faint">
           <span>
-            Vol. mdshare &nbsp;·&nbsp; Published with care &nbsp;·&nbsp;{" "}
-            {today}
+            DocHouse &nbsp;·&nbsp; {today}
           </span>
           <span>
             Paste &nbsp;·&nbsp; Preview &nbsp;·&nbsp; Publish &nbsp;·&nbsp;

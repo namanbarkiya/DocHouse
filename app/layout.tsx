@@ -22,20 +22,20 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
-const SITE_URL = "https://mdshare.nbarkiya.xyz";
-const SITE_NAME = "mdshare";
+const SITE_URL = "https://dochouse.nbarkiya.xyz";
+const SITE_NAME = "DocHouse";
 const OG_IMAGE =
-  "https://res.cloudinary.com/dvt5vkfwz/image/upload/mdshare_og_url.png";
+  "https://res.cloudinary.com/dvt5vkfwz/image/upload/dochouse_og_url.png";
 const TAGLINE =
   "Share markdown as a public web page. No Gist viewer, no signup wall.";
 const DESCRIPTION =
-  "Paste markdown, get a public URL that renders it as a web page. Three reading themes, Shiki syntax highlighting, slug from your title. No signup until you click publish.";
+  "Paste markdown into DocHouse and get a public URL that renders it as a web page. Three reading themes, Shiki syntax highlighting, slug from your title. No signup until you click publish.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "mdshare: share markdown as a link",
-    template: "%s · mdshare",
+    default: "DocHouse: share markdown as a link",
+    template: "%s · DocHouse",
   },
   description: DESCRIPTION,
   applicationName: SITE_NAME,
@@ -50,6 +50,7 @@ export const metadata: Metadata = {
     "gist alternative",
     "markdown sharing",
     "publish .md file",
+    "DocHouse",
   ],
   authors: [{ name: SITE_NAME }],
   creator: SITE_NAME,
@@ -60,7 +61,7 @@ export const metadata: Metadata = {
     type: "website",
     siteName: SITE_NAME,
     url: SITE_URL,
-    title: "mdshare: share markdown as a link",
+    title: "DocHouse: share markdown as a link",
     description: TAGLINE,
     locale: "en_US",
     images: [
@@ -68,13 +69,13 @@ export const metadata: Metadata = {
         url: OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: "mdshare: share markdown as a link",
+        alt: "DocHouse: share markdown as a link",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "mdshare: share markdown as a link",
+    title: "DocHouse: share markdown as a link",
     description: TAGLINE,
     images: [OG_IMAGE],
   },

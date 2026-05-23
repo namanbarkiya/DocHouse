@@ -5,7 +5,7 @@ export function Brand({ size = 22 }: { size?: number }) {
   return (
     <Link
       href="/"
-      aria-label="mdshare"
+      aria-label="DocHouse"
       className="inline-flex items-center gap-2.5 text-ink hover:opacity-80 transition-opacity duration-300"
     >
       <Image
@@ -17,7 +17,7 @@ export function Brand({ size = 22 }: { size?: number }) {
         style={{ width: size, height: size, display: "block" }}
       />
       <span
-        className="font-display lowercase tracking-tight"
+        className="font-display tracking-tight"
         style={{
           fontSize: Math.round(size * 0.82),
           fontFeatureSettings: '"ss01"',
@@ -25,7 +25,7 @@ export function Brand({ size = 22 }: { size?: number }) {
           lineHeight: 1,
         }}
       >
-        mdshare
+        DocHouse
       </span>
     </Link>
   );

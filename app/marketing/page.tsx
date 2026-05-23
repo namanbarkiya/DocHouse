@@ -47,7 +47,7 @@ export default function MarketingArtboard() {
             color: "#fafafa",
           }}
         >
-          mdshare <span style={{ color: "#666" }}>/</span> logo and og card
+          DocHouse <span style={{ color: "#666" }}>/</span> logo and og card
         </h1>
         <p
           style={{
@@ -307,7 +307,7 @@ function OGCard({ variant }: { variant: "paper" | "ink" }) {
           color: muted,
         }}
       >
-        <span>mdshare.nbarkiya.xyz</span>
+        <span>dochouse.nbarkiya.xyz</span>
         <span>
           Paste &nbsp;·&nbsp; Preview &nbsp;·&nbsp; Publish &nbsp;·&nbsp; Share
         </span>

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Settings2, PenLine, LibraryBig, X } from "lucide-react";
 import { POST_THEMES, type PostTheme } from "@/lib/themes";
 
-const STORAGE_KEY = "mdshare:reader-theme";
+const STORAGE_KEY = "dochouse:reader-theme";
 
 const BG_BY_THEME: Record<PostTheme, string> = {
   paper: "#faf7f2",
@@ -31,14 +31,14 @@ export function ReaderToolbar({ authorTheme }: { authorTheme: PostTheme }) {
 
   // Apply theme to article + background wrapper
   useEffect(() => {
-    const article = document.querySelector<HTMLElement>("article.prose-mdshare");
+    const article = document.querySelector<HTMLElement>("article.prose-dochouse");
     if (article) {
       article.classList.remove(
-        "prose-mdshare-paper",
-        "prose-mdshare-ink",
-        "prose-mdshare-console"
+        "prose-dochouse-paper",
+        "prose-dochouse-ink",
+        "prose-dochouse-console"
       );
-      article.classList.add(`prose-mdshare-${theme}`);
+      article.classList.add(`prose-dochouse-${theme}`);
     }
     const wrapper = document.querySelector<HTMLElement>("[data-post-bg]");
     if (wrapper) wrapper.style.background = BG_BY_THEME[theme];

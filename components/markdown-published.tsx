@@ -55,7 +55,7 @@ export async function MarkdownPublished({
   return (
     <article
       suppressHydrationWarning
-      className={`prose-mdshare prose-mdshare-${theme} themed-surface`}
+      className={`prose-dochouse prose-dochouse-${theme} themed-surface`}
     >
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}

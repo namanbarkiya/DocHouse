@@ -225,48 +225,48 @@ textarea.editor-surface::placeholder {
    Each theme is a complete identity. Drives /p/[slug] AND the
    right-side preview pane in /create.                                */
 
-.prose-mdshare {
+.prose-dochouse {
   font-feature-settings: "kern", "liga", "onum";
   overflow-wrap: break-word;
 }
-.prose-mdshare a {
+.prose-dochouse a {
   overflow-wrap: anywhere;
   word-break: break-word;
 }
-.prose-mdshare > * + * {
+.prose-dochouse > * + * {
   margin-top: 1.2em;
 }
-.prose-mdshare p {
+.prose-dochouse p {
   margin: 0;
 }
-.prose-mdshare a {
+.prose-dochouse a {
   text-decoration: underline;
   text-underline-offset: 3px;
   text-decoration-thickness: 1px;
 }
-.prose-mdshare ul,
-.prose-mdshare ol {
+.prose-dochouse ul,
+.prose-dochouse ol {
   padding-left: 1.6em;
 }
-.prose-mdshare li + li {
+.prose-dochouse li + li {
   margin-top: 0.35em;
 }
-.prose-mdshare blockquote {
+.prose-dochouse blockquote {
   border-left: 1px solid currentColor;
   padding-left: 1.2em;
   opacity: 0.75;
   font-style: italic;
 }
-.prose-mdshare hr {
+.prose-dochouse hr {
   border: 0;
   border-top: 1px solid var(--hairline);
   margin: 2.2em 0;
 }
-.prose-mdshare img {
+.prose-dochouse img {
   max-width: 100%;
   height: auto;
 }
-.prose-mdshare table {
+.prose-dochouse table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.95em;
@@ -274,31 +274,31 @@ textarea.editor-surface::placeholder {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 }
-.prose-mdshare th,
-.prose-mdshare td {
+.prose-dochouse th,
+.prose-dochouse td {
   padding: 0.55em 0.85em;
   border-bottom: 1px solid var(--hairline);
   text-align: left;
 }
-.prose-mdshare th {
+.prose-dochouse th {
   font-weight: 600;
 }
-.prose-mdshare pre {
+.prose-dochouse pre {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 }
-.prose-mdshare code:not(pre code) {
+.prose-dochouse code:not(pre code) {
   word-break: break-word;
   overflow-wrap: anywhere;
 }
-.prose-mdshare pre code {
+.prose-dochouse pre code {
   display: block;
   white-space: pre;
   font-family: var(--font-geist-mono), ui-monospace, monospace;
 }
 
 /* The preview pane stretches to fill its column */
-.prose-mdshare.preview-fill {
+.prose-dochouse.preview-fill {
   width: 100%;
   max-width: none !important;
   padding: 5rem 4rem !important;
@@ -307,7 +307,7 @@ textarea.editor-surface::placeholder {
 }
 
 /* ─── PAPER ─────────────────────────────────────────────────────── */
-.prose-mdshare-paper {
+.prose-dochouse-paper {
   background: #faf7f2;
   color: #181613;
   font-family: var(--font-fraunces), Georgia, serif;
@@ -319,27 +319,27 @@ textarea.editor-surface::placeholder {
     clamp(64px, 8vw, 100px);
   font-feature-settings: "kern", "liga", "ss01", "onum";
 }
-.prose-mdshare-paper h1 {
+.prose-dochouse-paper h1 {
   font-size: clamp(34px, 5.2vw, 56px);
   line-height: 1.08;
   letter-spacing: -0.028em;
   font-weight: 400;
   margin-bottom: 0.3em;
 }
-.prose-mdshare-paper h2 {
+.prose-dochouse-paper h2 {
   font-size: clamp(24px, 3.2vw, 32px);
   line-height: 1.2;
   letter-spacing: -0.018em;
   font-weight: 400;
   margin-top: 1.7em;
 }
-.prose-mdshare-paper h3 {
+.prose-dochouse-paper h3 {
   font-size: clamp(19px, 2vw, 23px);
   font-weight: 500;
   line-height: 1.3;
   margin-top: 1.5em;
 }
-.prose-mdshare-paper > p:first-of-type::first-letter {
+.prose-dochouse-paper > p:first-of-type::first-letter {
   font-size: 5em;
   line-height: 0.86;
   float: left;
@@ -350,30 +350,30 @@ textarea.editor-surface::placeholder {
   font-family: var(--font-fraunces), Georgia, serif;
   font-feature-settings: "ss01";
 }
-.prose-mdshare-paper pre {
+.prose-dochouse-paper pre {
   background: #f3ede2;
   border: 1px solid #e8e3d8;
   padding: 1.05em 1.25em;
   font-size: 0.84em;
   line-height: 1.6;
 }
-.prose-mdshare-paper code:not(pre code) {
+.prose-dochouse-paper code:not(pre code) {
   background: #f0e9dc;
   padding: 0.12em 0.42em;
   font-family: var(--font-geist-mono), ui-monospace, monospace;
   font-size: 0.86em;
   border-radius: 2px;
 }
-.prose-mdshare-paper a {
+.prose-dochouse-paper a {
   color: #d63a1f;
 }
-.prose-mdshare-paper th,
-.prose-mdshare-paper td {
+.prose-dochouse-paper th,
+.prose-dochouse-paper td {
   border-color: #e8e3d8;
 }
 
 /* ─── INK ───────────────────────────────────────────────────────── */
-.prose-mdshare-ink {
+.prose-dochouse-ink {
   background: #0e0c0a;
   color: #ede7da;
   font-family: var(--font-fraunces), Georgia, serif;
@@ -385,30 +385,30 @@ textarea.editor-surface::placeholder {
     clamp(64px, 8vw, 100px);
   font-feature-settings: "kern", "liga", "ss01", "onum";
 }
-.prose-mdshare-ink h1,
-.prose-mdshare-ink h2,
-.prose-mdshare-ink h3 {
+.prose-dochouse-ink h1,
+.prose-dochouse-ink h2,
+.prose-dochouse-ink h3 {
   color: #faf5e9;
   font-weight: 400;
 }
-.prose-mdshare-ink h1 {
+.prose-dochouse-ink h1 {
   font-size: clamp(34px, 5.2vw, 56px);
   line-height: 1.08;
   letter-spacing: -0.028em;
   margin-bottom: 0.3em;
 }
-.prose-mdshare-ink h2 {
+.prose-dochouse-ink h2 {
   font-size: clamp(24px, 3.2vw, 32px);
   line-height: 1.2;
   letter-spacing: -0.018em;
   margin-top: 1.7em;
 }
-.prose-mdshare-ink h3 {
+.prose-dochouse-ink h3 {
   font-size: clamp(19px, 2vw, 23px);
   font-weight: 500;
   margin-top: 1.5em;
 }
-.prose-mdshare-ink > p:first-of-type::first-letter {
+.prose-dochouse-ink > p:first-of-type::first-letter {
   font-size: 5em;
   line-height: 0.86;
   float: left;
@@ -419,7 +419,7 @@ textarea.editor-surface::placeholder {
   font-family: var(--font-fraunces), Georgia, serif;
   font-feature-settings: "ss01";
 }
-.prose-mdshare-ink pre {
+.prose-dochouse-ink pre {
   background: #1a1714;
   border: 1px solid #2a241e;
   padding: 1.05em 1.25em;
@@ -427,7 +427,7 @@ textarea.editor-surface::placeholder {
   line-height: 1.6;
   color: #e0d9c8;
 }
-.prose-mdshare-ink code:not(pre code) {
+.prose-dochouse-ink code:not(pre code) {
   background: #1a1714;
   color: #ff8a6e;
   padding: 0.12em 0.42em;
@@ -435,22 +435,22 @@ textarea.editor-surface::placeholder {
   font-size: 0.86em;
   border-radius: 2px;
 }
-.prose-mdshare-ink a {
+.prose-dochouse-ink a {
   color: #ff5938;
 }
-.prose-mdshare-ink hr {
+.prose-dochouse-ink hr {
   border-color: #2a241e;
 }
-.prose-mdshare-ink blockquote {
+.prose-dochouse-ink blockquote {
   border-color: #6b6256;
 }
-.prose-mdshare-ink th,
-.prose-mdshare-ink td {
+.prose-dochouse-ink th,
+.prose-dochouse-ink td {
   border-color: #2a241e;
 }
 
 /* ─── CONSOLE ───────────────────────────────────────────────────── */
-.prose-mdshare-console {
+.prose-dochouse-console {
   background: #ffffff;
   color: #0a0a0a;
   font-family: var(--font-geist-mono), ui-monospace, monospace;
@@ -462,19 +462,19 @@ textarea.editor-surface::placeholder {
     clamp(64px, 8vw, 100px);
   font-feature-settings: "kern", "calt";
 }
-.prose-mdshare-console h1 {
+.prose-dochouse-console h1 {
   font-size: 22px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: 0.6em;
 }
-.prose-mdshare-console h1::before {
+.prose-dochouse-console h1::before {
   content: "# ";
   color: #b4ada0;
   font-weight: 400;
 }
-.prose-mdshare-console h2 {
+.prose-dochouse-console h2 {
   font-size: 16px;
   font-weight: 600;
   text-transform: uppercase;
@@ -483,84 +483,84 @@ textarea.editor-surface::placeholder {
   padding-top: 1.2em;
   border-top: 1px solid #ececec;
 }
-.prose-mdshare-console h2::before {
+.prose-dochouse-console h2::before {
   content: "## ";
   color: #b4ada0;
   font-weight: 400;
 }
-.prose-mdshare-console h3 {
+.prose-dochouse-console h3 {
   font-size: 14.5px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.03em;
 }
-.prose-mdshare-console h3::before {
+.prose-dochouse-console h3::before {
   content: "### ";
   color: #b4ada0;
   font-weight: 400;
 }
-.prose-mdshare-console pre {
+.prose-dochouse-console pre {
   background: #f7f7f7;
   border: 1px solid #ececec;
   padding: 1em 1.2em;
   font-size: 0.95em;
   line-height: 1.55;
 }
-.prose-mdshare-console code:not(pre code) {
+.prose-dochouse-console code:not(pre code) {
   background: transparent;
   color: #5e8000;
   padding: 0;
   font-size: 1em;
 }
-.prose-mdshare-console code:not(pre code)::before {
+.prose-dochouse-console code:not(pre code)::before {
   content: "`";
   color: #b4ada0;
 }
-.prose-mdshare-console code:not(pre code)::after {
+.prose-dochouse-console code:not(pre code)::after {
   content: "`";
   color: #b4ada0;
 }
-.prose-mdshare-console a {
+.prose-dochouse-console a {
   color: #0a0a0a;
   text-decoration: underline;
   text-decoration-color: #d4ff00;
   text-decoration-thickness: 4px;
   text-underline-offset: 2px;
 }
-.prose-mdshare-console blockquote {
+.prose-dochouse-console blockquote {
   border-color: #b4ada0;
   font-style: normal;
   opacity: 1;
   color: #6b655a;
 }
-.prose-mdshare-console blockquote::before {
+.prose-dochouse-console blockquote::before {
   content: "> ";
   color: #b4ada0;
 }
-.prose-mdshare-console hr {
+.prose-dochouse-console hr {
   border-color: #ececec;
 }
-.prose-mdshare-console th,
-.prose-mdshare-console td {
+.prose-dochouse-console th,
+.prose-dochouse-console td {
   border-color: #ececec;
 }
-.prose-mdshare-console ul {
+.prose-dochouse-console ul {
   list-style: none;
   padding-left: 0;
 }
-.prose-mdshare-console ul li::before {
+.prose-dochouse-console ul li::before {
   content: "- ";
   color: #b4ada0;
 }
-.prose-mdshare-console ol {
+.prose-dochouse-console ol {
   list-style: none;
   padding-left: 0;
   counter-reset: item;
 }
-.prose-mdshare-console ol li {
+.prose-dochouse-console ol li {
   counter-increment: item;
 }
-.prose-mdshare-console ol li::before {
+.prose-dochouse-console ol li::before {
   content: counter(item) ". ";
   color: #b4ada0;
 }

@@ -1,6 +1,6 @@
 import type { PostTheme } from "./themes";
 
-const KEY = "mdshare:draft";
+const KEY = "dochouse:draft";
 
 export type Draft = {
   content: string;

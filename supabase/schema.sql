@@ -1,4 +1,4 @@
--- mdshare — initial schema
+-- DocHouse - initial schema
 -- Run once in the Supabase SQL editor.
 
 create extension if not exists pgcrypto;

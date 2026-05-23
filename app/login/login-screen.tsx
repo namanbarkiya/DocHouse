@@ -85,7 +85,7 @@ export function LoginScreen() {
       <footer className="stage pt-10 mt-20">
         <Hairline />
         <p className="pt-5 font-mono text-[10.5px] uppercase tracking-[0.16em] text-ink-faint">
-          Vol. mdshare &nbsp;·&nbsp; Sign in once · publish anytime
+          DocHouse &nbsp;·&nbsp; Sign in once · publish anytime
         </p>
       </footer>
     </main>
